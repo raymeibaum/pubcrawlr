@@ -1,2 +1,2 @@
 # pubcrawl-planner
-General Assembly Project 2
+GA-ATL-WDI9 Project 2
