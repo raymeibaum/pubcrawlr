@@ -15,6 +15,7 @@ Link to trello board can be found [here](https://trello.com/b/gTpgYyxn/pubcrawl-
 | --- |
 | username: String |
 | password: String |
+| favoriteBars: [bar] |
 | pubcrawls: [pubcrawl] |
 | timestamp: createdAt: Date |
 | timestamp: updatedAt: Date |
@@ -28,19 +29,18 @@ Link to trello board can be found [here](https://trello.com/b/gTpgYyxn/pubcrawl-
 | Bar |
 | --- |
 | name: String |
-| number: Number |
 | location: street: String |
 | location: city: String |
 | location: state: String |
-| location: zip: Number
-| location: lat: Number |
-| location: lng: Number |
 
 ## 🍺 Wireframes
-![New Pubcrawl Wireframe](./resources/images/pubcrawl-planner-pubcrawl-new.png)
-![User Show Wireframe](./resources/images/pubcrawl-planner-user-show.png)
-![Pubcrawl Show Wireframe](./resources/images/pubcrawl-planner-pubcrawl-show.png)
-![Pubcrawl Edit Wireframe](./resources/images/pubcrawl-planner-pubcrawl-edit.png)
-![Signup Wireframe](./resources/images/pubcrawl-planner-signup.png)
-![Login Wireframe](./resources/images/pubcrawl-planner-login.png)
-![Logout Wireframe](./resources/images/pubcrawl-planner-logout.png)
+![login](./resources/images/login.png)
+![signup](./resources/images/signup.png)
+![user-show](./resources/images/user-show.png)
+![user-edit](./resources/images/user-edit.png)
+![bar-new](./resources/images/bar-new.png)
+![bar-show](./resources/images/bar-show.png)
+![bar-edit](./resources/images/bar-edit.png)
+![pubcrawl-new](./resources/images/pubcrawl-new.png)
+![pubcrawl-show](./resources/images/pubcrawl-show.png)
+![pubcrawl-edit](./resources/images/pubcrawl-edit.png)
