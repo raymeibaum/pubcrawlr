@@ -1,0 +1,24 @@
+{
+  "name": "pubcrawl-planner",
+  "version": "1.0.0",
+  "description": "Pubcrawl planner is a MEN stack application that allows users to plan pubcrawls based on their favorite bars.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raymeibaum/pubcrawl-planner.git"
+  },
+  "author": "Ray Meibaum",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raymeibaum/pubcrawl-planner/issues"
+  },
+  "homepage": "https://github.com/raymeibaum/pubcrawl-planner#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "hbs": "^4.0.1"
+  }
+}
