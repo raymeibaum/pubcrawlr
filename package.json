@@ -18,7 +18,13 @@
   },
   "homepage": "https://github.com/raymeibaum/pubcrawl-planner#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "hbs": "^4.0.1"
+    "express-session": "^1.15.1",
+    "hbs": "^4.0.1",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.9.1",
+    "morgan": "^1.8.1"
   }
 }
