@@ -12,12 +12,17 @@ router.get('/', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-  res.render('sessions/login.hbs');
+  res.render('sessions/login.hbs', {
+    title: 'Log in'
+  });
 });
 
 router.get('/signup', function(req, res) {
-  res.render('sessions/signup.hbs');
-})
+  res.render('sessions/signup.hbs', {
+    title: 'Sign up'
+  });
+});
+
 router.post('/login', authHelpers.loginUser, function(req, res){
 });
 
