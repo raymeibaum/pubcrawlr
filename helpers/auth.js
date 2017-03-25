@@ -2,18 +2,20 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.js');
 
 function createSecure(req, res, next) {
-  let password = req.body.password
-
-  res.hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  if (req.body.password === req.body.confirmPassword) {
+    let password = req.body.password
+    res.hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  } else {
+    res.json({status: 400, data: "passwords do not match"});
+  }
   next()
 }
 
 function loginUser(req, res, next) {
-  // YOU MIGHT CHANGE EMAIL TO USERNAME IF YOU DON'T WANT TO STORE EMAILS
   let username = req.body.username;
   let password = req.body.password;
 
-  let query = User.findOne({ email: email }).exec()
+  let query = User.findOne({ username: username }).exec()
 
   query.then(function(foundUser){
     if (foundUser == null) {

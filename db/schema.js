@@ -4,36 +4,35 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 const BarSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
+  name: String,
   address: String
 });
 
 const UserSchema = new Schema({
-  username: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  passwordDigest: {
-    type: String,
-    required: true
-  },
+  username: String,
+  password: String,
   favoriteBars: [BarSchema],
-  timestamps: Date
+  createdAt: Date,
+  updatedAt: Date
 });
 
-// UserSchema.pre('save', function(next) {
-//   let now = new Date();
-//   this.timestamps.updatedAt = now;
-//
-//   if (!this.timestamps.createdAt) {
-//     this.timestamps.createdAt = now
-//   }
-//   next()
-// });
+UserSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+UserSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
+
+UserSchema.pre('save', function(next) {
+  let now = new Date();
+  this.updatedAt = now;
+
+  if (!this.createdAt) {
+    this.createdAt = now
+  }
+  next()
+});
 
 const UserModel = mongoose.model('User', UserSchema);
 const BarModel = mongoose.model('Bar', BarSchema);

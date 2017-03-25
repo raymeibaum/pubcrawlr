@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const passport = require('passport');
 const methodOverride = require('method-override');
 const logger = require('morgan');
 const hbs = require('hbs')
@@ -19,12 +21,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev'));
 app.use(methodOverride('_method'));
-
+app.use(cookieParser());
 app.use(session({
-  secret: "derpderpderpcats",
+  secret: "charliethewonderdog",
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true,
+  cookie: { secure: true }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', sessionsController);
 app.use('/users', usersController);
