@@ -3,7 +3,7 @@
 Pubcrawl planner is a MEN stack application that allows users to plan pubcrawls based on their favorite bars.
 
 ## 🍺 Deployment
-Deployed to Heroku [here](https://pubcrawl-planner.herokuapp.com/).
+Deployed to Heroku [here](https://pubcrawlr.herokuapp.com/).
 
 ## 🍺 User Stories
 

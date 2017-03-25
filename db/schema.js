@@ -4,19 +4,28 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 const UserSchema = new Schema({
-  email: String,
-  password_digest: String,
-  created_at: Date,
-  updated_at: Date
+  username: {
+    type: String,
+    unique: true,
+    required: true
+  }
+  passwordDigest: {
+    type: String,
+    required: true
+  }
+  favoriteBars: [BarSchema]
+  timestamps: Date
 });
 
-UserSchema.pre('save', function(next) {
-  now = new Date();
-  this.updated_at = now;
-
-  if (!this.created_at) { this.created_at = now }
-  next()
-});
+// UserSchema.pre('save', function(next) {
+//   let now = new Date();
+//   this.timestamps.updatedAt = now;
+//
+//   if (!this.timestamps.createdAt) {
+//     this.timestamps.createdAt = now
+//   }
+//   next()
+// });
 
 const UserModel = mongoose.model('User', UserSchema);
 

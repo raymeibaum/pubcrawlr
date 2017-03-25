@@ -10,7 +10,7 @@ function createSecure(req, res, next) {
 
 function loginUser(req, res, next) {
   // YOU MIGHT CHANGE EMAIL TO USERNAME IF YOU DON'T WANT TO STORE EMAILS
-  let email = req.body.email;
+  let username = req.body.username;
   let password = req.body.password;
 
   let query = User.findOne({ email: email }).exec()
@@ -19,7 +19,7 @@ function loginUser(req, res, next) {
     if (foundUser == null) {
       res.json({status: 401, data: "unauthorized"})
 
-    } else if (bcrypt.compareSync(password, foundUser.password_digest)) {
+    } else if (bcrypt.compareSync(password, foundUser.passwordDigest)) {
       req.session.currentUser = foundUser;
     }
     next()
