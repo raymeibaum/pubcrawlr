@@ -1,7 +1,7 @@
 {
-  "name": "pubcrawl-planner",
+  "name": "pubcrawlr",
   "version": "1.0.0",
-  "description": "Pubcrawl planner is a MEN stack application that allows users to plan pubcrawls based on their favorite bars.",
+  "description": "Pubcrawlr is a MEN stack application that allows users to plan pubcrawls based on their favorite bars.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raymeibaum/pubcrawl-planner.git"
+    "url": "git+https://github.com/raymeibaum/pubcrawlr.git"
   },
   "author": "Ray Meibaum",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/raymeibaum/pubcrawl-planner/issues"
+    "url": "https://github.com/raymeibaum/pubcrawlr/issues"
   },
-  "homepage": "https://github.com/raymeibaum/pubcrawl-planner#readme",
+  "homepage": "https://github.com/raymeibaum/pubcrawlr#readme",
   "dependencies": {
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",

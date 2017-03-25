@@ -3,17 +3,25 @@ const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
 
+const BarSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  address: String
+});
+
 const UserSchema = new Schema({
   username: {
     type: String,
     unique: true,
     required: true
-  }
+  },
   passwordDigest: {
     type: String,
     required: true
-  }
-  favoriteBars: [BarSchema]
+  },
+  favoriteBars: [BarSchema],
   timestamps: Date
 });
 
@@ -28,7 +36,9 @@ const UserSchema = new Schema({
 // });
 
 const UserModel = mongoose.model('User', UserSchema);
+const BarModel = mongoose.model('Bar', BarSchema);
 
 module.exports = {
-  User: UserModel
+  User: UserModel,
+  Bar: BarModel
 }

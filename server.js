@@ -11,8 +11,7 @@ const sessionsController = require('./controllers/sessions.js');
 
 const app = express();
 
-// ADD THE NAME OF YOUR DATABASE
-mongoose.connect('mongodb://localhost/pubcrawl-planner');
+mongoose.connect('mongodb://localhost/pubcrawlr');
 
 app.set('view engine', 'hbs')
 
@@ -27,8 +26,17 @@ app.use(session({
   saveUninitialized: false
 }));
 
+app.use('/', sessionsController);
 app.use('/users', usersController);
-app.use('/sessions', sessionsController);
+
+const db = mongoose.connection;
+db.on('error', function(err){
+  console.log(err);
+});
+
+db.once('open', function() {
+  console.log("database has been connected!");
+});
 
 const port = process.env.PORT || 3000
 app.listen(port, console.log(`Server listening on port: ${port}.`));
