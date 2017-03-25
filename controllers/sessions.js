@@ -15,9 +15,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-  res.render('sessions/login.hbs', {
-    title: 'Log in'
-  });
+  res.render('sessions/login.hbs');
 });
 
 router.get('/signup', function(req, res) {
@@ -26,11 +24,8 @@ router.get('/signup', function(req, res) {
   });
 });
 
-router.post('/login', passport.authenticate('local', {
-  successRedirect: '/works',
-  failureRedirect: '/doesnt',
-  failureFlash: false })
-);
+router.post('/login', authHelpers.loginUser, function(req, res){
+});
 
 router.delete('/', function(req, res){
 });
