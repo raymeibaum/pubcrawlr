@@ -7,13 +7,15 @@ const logger = require('morgan');
 const hbs = require('hbs')
 const mongoose = require('mongoose');
 
+require('dotenv').config();
+
 const usersController = require('./controllers/users.js');
 const sessionsController = require('./controllers/sessions.js');
 const barsController = require('./controllers/bars.js');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/pubcrawlr');
+mongoose.connect(process.env.MONGODB_URI);
 
 app.set('view engine', 'hbs')
 

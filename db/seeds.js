@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const Bar = require('../models/bar');
 
+// THESE BAR SEEDS ASSUME THERE IS ALREADY A USER NAMED RAY IN THE DB
+
 mongoose.connect('mongodb://localhost/pubcrawlr');
 
 let bar1 = new Bar({
