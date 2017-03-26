@@ -31,16 +31,42 @@ router.post('/', auth.authorize, function(req, res) {
 });
 
 router.get('/:id', auth.authorize, function(req, res) {
-  console.log(req.params.id);
   User.findById(req.params.userId)
     .exec(function(err, user) {
       const bar = user.favoriteBars.id(req.params.id);
       console.log(bar);
       res.render('bars/show.hbs', {
         title: bar.name,
-        bar: bar
+        bar: bar,
+        userId: req.params.userId
       });
     });
 });
+
+router.get('/:id/edit', auth.authorize, function(req, res) {
+  User.findById(req.params.userId)
+    .exec(function(err, user) {
+      const bar = user.favoriteBars.id(req.params.id);
+      console.log(bar);
+      res.render('bars/edit.hbs', {
+        title: bar.name,
+        bar: bar,
+        userId: req.params.userId
+      });
+    });
+});
+
+router.patch('/:id', auth.authorize, function(req, res) {
+  User.findById(req.params.userId)
+    .exec(function(err, user) {
+      const bar = user.favoriteBars.id(req.params.id);
+        bar.name = req.body.name;
+        bar.address.street = req.body.street;
+        bar.address.city = req.body.city;
+        bar.address.state = req.body.state;
+        user.save();
+        res.redirect(`/users/${req.params.userId}/bars/${req.params.id}`);
+    })
+})
 
 module.exports = router;

@@ -3,3 +3,8 @@
   {{bar.address.street}}<br>
   {{bar.address.city}}, {{bar.address.state}}<br>
 </address>
+<hr>
+<form action="/users/{{userId}}/bars/{{bar._id}}?_method=DELETE" method="post">
+  <a class="btn btn-primary" href="/users/{{userId}}/bars/{{bar._id}}/edit" type="button" name="button">Edit</a>
+  <button class="btn btn-danger" type="submit" name="button">Delete</button>
+</form>
