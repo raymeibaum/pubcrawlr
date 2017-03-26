@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const User = require('../models/user.js');
-const authHelpers = require('../helpers/auth.js');
+const auth = require('../helpers/auth.js');
 
 
 router.get('/', function(req, res) {
@@ -15,7 +15,9 @@ router.get('/', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-  res.render('sessions/login.hbs');
+  res.render('sessions/login.hbs', {
+    title: 'Log in'
+  });
 });
 
 router.get('/signup', function(req, res) {
@@ -24,8 +26,14 @@ router.get('/signup', function(req, res) {
   });
 });
 
-router.post('/login', authHelpers.loginUser, function(req, res){
+router.post('/login', auth.loginUser, function(req, res){
+  res.redirect(`/users/${req.session.currentUser._id}`);
 });
+
+router.get('/logout', function(req, res) {
+  req.session.destroy();
+  res.render('sessions/logout.hbs');
+})
 
 router.delete('/', function(req, res){
 });

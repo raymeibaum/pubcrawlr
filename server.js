@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const passport = require('passport');
 const methodOverride = require('method-override');
 const logger = require('morgan');
 const hbs = require('hbs')
@@ -25,11 +24,8 @@ app.use(cookieParser());
 app.use(session({
   secret: "charliethewonderdog",
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  saveUninitialized: false,
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/', sessionsController);
 app.use('/users', usersController);

@@ -12,15 +12,13 @@ function createSecure(req, res, next) {
 }
 
 function loginUser(req, res, next) {
-  let username = req.body.username;
-  let password = req.body.password;
+  var username = req.body.username;
+  var password = req.body.password;
 
-  let query = User.findOne({ username: username }).exec()
-
-  query.then(function(foundUser){
+  User.findOne({ username: username })
+  .then(function(foundUser) {
     if (foundUser == null) {
       res.json({status: 401, data: "unauthorized"})
-
     } else if (bcrypt.compareSync(password, foundUser.passwordDigest)) {
       req.session.currentUser = foundUser;
     }
@@ -33,7 +31,6 @@ function loginUser(req, res, next) {
 
 function authorize(req, res, next) {
   let currentUser = req.session.currentUser;
-
   if (!currentUser || currentUser._id !== req.params.id ) {
     res.json({status: 401, data: 'unauthorized'});
   } else {
