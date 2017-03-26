@@ -6,23 +6,29 @@ const auth = require('../helpers/auth.js');
 
 module.exports = function(passport) {
   router.get('/', function(req, res) {
-    res.send(req.user);
+    if(req.user) {
+      res.redirect(`/users/${req.user.username}`);
+    } else {
+      res.redirect('/login');
+    }
   });
 
   router.get('/login', function(req, res) {
     res.render('sessions/login.hbs', {
-      title: 'Log in'
+      title: 'Log in',
+      message: req.flash('error')
     });
   });
 
   router.get('/signup', function(req, res) {
     res.render('sessions/signup.hbs', {
-      title: 'Sign up'
+      title: 'Sign up',
+      message: req.flash('error')
     });
   });
 
   router.post('/login', passport.authenticate('login', {
-    successRedirect: `/users/`,
+    successRedirect: `/`,
     failureRedirect: '/login',
     failureFlash: true
   }), function(req, res) {

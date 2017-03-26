@@ -4,15 +4,19 @@ const router = express.Router({mergeParams: true});
 const User = require('../models/user.js');
 const auth = require('../helpers/auth.js')
 
-router.get('/', auth.authorize, function(req, res) {
-  User.findById(req.params.userId)
+router.get('/', function(req, res) {
+  User.findOne({username: req.params.username})
     .exec(function(err, user) {
-      res.render('users/show.hbs', {
-        title: user.username,
-        username: user.username,
-        id: user._id,
-        bars: user.favoriteBars
-      });
+      if (!user) {
+        res.render('errors/404')
+      } else {
+        res.render('users/show.hbs', {
+          title: user.username,
+          username: user.username,
+          id: user._id,
+          bars: user.favoriteBars
+        });
+      }
     })
 });
 

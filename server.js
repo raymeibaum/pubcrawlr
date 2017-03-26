@@ -34,8 +34,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', sessionsController(passport));
-app.use('/users/:userId', usersController);
-app.use('/users/:userId/bars', barsController);
+app.use('/users/:username', usersController);
+app.use('/users/:username/bars', barsController);
 
 const db = mongoose.connection;
 db.on('error', function(err){
