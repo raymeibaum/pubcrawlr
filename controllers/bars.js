@@ -66,7 +66,16 @@ router.patch('/:id', auth.authorize, function(req, res) {
         bar.address.state = req.body.state;
         user.save();
         res.redirect(`/users/${req.params.userId}/bars/${req.params.id}`);
-    })
+    });
+});
+
+router.delete('/:id', auth.authorize, function(req, res) {
+  User.findById(req.params.userId)
+    .exec(function(err, user) {
+      user.favoriteBars.id(req.params.id).remove()
+      user.save();
+      res.redirect(`/users/${req.params.userId}`);
+    });
 })
 
 module.exports = router;
