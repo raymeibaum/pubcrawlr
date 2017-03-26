@@ -1,8 +1,8 @@
 <h3>Welcome, {{username}}!</h3>
 <p><strong>Favorite Bars</strong></p>
-<ul>
+<ul class="list-unstyled">
   {{#each bars}}
-  <li>{{this.name}}</li>
+  <li><a href="/users/{{../id}}/bars/{{this._id}}">{{this.name}}</a></li>
   {{/each}}
 </ul>
 <a class="btn btn-default" href="/users/{{id}}/bars/new" type="button" name="button">Add Bar</a>

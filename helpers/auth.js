@@ -31,7 +31,7 @@ function loginUser(req, res, next) {
 
 function authorize(req, res, next) {
   let currentUser = req.session.currentUser;
-  console.log(currentUser, currentUser._id, req.params.userId);
+  // console.log(currentUser);
   if (!currentUser || currentUser._id !== req.params.userId ) {
     res.json({status: 401, data: 'unauthorized'});
   } else {

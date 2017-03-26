@@ -25,9 +25,22 @@ router.post('/', auth.authorize, function(req, res) {
       });
       user.favoriteBars.push(bar);
       user.save(function(err, user) {
-        console.log(user);
       });
       res.redirect(`/users/${req.params.userId}`);
     });
-})
+});
+
+router.get('/:id', auth.authorize, function(req, res) {
+  console.log(req.params.id);
+  User.findById(req.params.userId)
+    .exec(function(err, user) {
+      const bar = user.favoriteBars.id(req.params.id);
+      console.log(bar);
+      res.render('bars/show.hbs', {
+        title: bar.name,
+        bar: bar
+      });
+    });
+});
+
 module.exports = router;
