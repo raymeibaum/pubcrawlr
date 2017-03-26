@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 
 const usersController = require('./controllers/users.js');
 const sessionsController = require('./controllers/sessions.js');
+const barsController = require('./controllers/bars.js');
 
 const app = express();
 
@@ -28,7 +29,8 @@ app.use(session({
 }));
 
 app.use('/', sessionsController);
-app.use('/users', usersController);
+app.use('/users/:userId', usersController);
+app.use('/users/:userId/bars', barsController);
 
 const db = mongoose.connection;
 db.on('error', function(err){

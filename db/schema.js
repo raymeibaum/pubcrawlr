@@ -5,23 +5,29 @@ mongoose.Promise = global.Promise;
 
 const BarSchema = new Schema({
   name: String,
-  address: String
+  address: {
+    street: String,
+    city: String,
+    state: String
+  }
 });
 
 const UserSchema = new Schema({
   username: String,
   passwordDigest: String,
   favoriteBars: [BarSchema],
-  createdAt: Date,
-  updatedAt: Date
+  timestamps: {
+    createdAt: Date,
+    updatedAt: Date
+  }
 });
 
 UserSchema.pre('save', function(next) {
   let now = new Date();
-  this.updatedAt = now;
+  this.timestamps.updatedAt = now;
 
-  if (!this.createdAt) {
-    this.createdAt = now
+  if (!this.timestamps.createdAt) {
+    this.timestamps.createdAt = now
   }
   next()
 });

@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 
 const User = require('../models/user.js');
 const auth = require('../helpers/auth.js');
-
 
 router.get('/', function(req, res) {
   if (req.session.currentUser) {
@@ -30,12 +28,31 @@ router.post('/login', auth.loginUser, function(req, res){
   res.redirect(`/users/${req.session.currentUser._id}`);
 });
 
+router.post('/signup', auth.createSecure, function(req, res){
+  User.findOne({username: req.body.username})
+    .exec(function(err, userFound) {
+      if (!userFound) {
+        let newUser = new User({
+          username: req.body.username,
+          passwordDigest: res.hashedPassword
+        });
+        newUser.save(function(err, newUser){
+          if (err) {
+            console.log(err);
+          } else {
+            req.session.currentUser = newUser;
+            res.redirect(`/users/${newUser._id}`);
+          }
+        });
+      } else {
+        res.json({status: 200, data: 'username taken'});
+      }
+    });
+});
+
 router.get('/logout', function(req, res) {
   req.session.destroy();
   res.render('sessions/logout.hbs');
 })
-
-router.delete('/', function(req, res){
-});
 
 module.exports = router;
