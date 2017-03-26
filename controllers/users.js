@@ -5,11 +5,15 @@ const User = require('../models/user.js');
 const auth = require('../helpers/auth.js')
 
 router.get('/', auth.authorize, function(req, res) {
-  res.render('users/show.hbs', {
-    title: req.session.currentUser.username,
-    username: req.session.currentUser.username,
-    id: req.session.currentUser._id
-  });
+  User.findById(req.params.userId)
+    .exec(function(err, user) {
+      res.render('users/show.hbs', {
+        title: user.username,
+        username: user.username,
+        id: user._id,
+        bars: user.favoriteBars
+      });
+    })
 });
 
 router.get('/edit', auth.authorize, function(req, res) {
