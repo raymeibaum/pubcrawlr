@@ -6,8 +6,11 @@ const methodOverride = require('method-override');
 const logger = require('morgan');
 const hbs = require('hbs')
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const passport = require('passport');
 
 require('dotenv').config();
+require('./helpers/passport.js')(passport);
 
 const usersController = require('./controllers/users.js');
 const sessionsController = require('./controllers/sessions.js');
@@ -24,13 +27,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev'));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use(session({
-  secret: "charliethewonderdog",
-  resave: false,
-  saveUninitialized: false,
-}));
+app.use(flash());
+app.use(session({ secret: 'charliethewondermutt', resave: true, saveUninitialized: false }));
 
-app.use('/', sessionsController);
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/', sessionsController(passport));
 app.use('/users/:userId', usersController);
 app.use('/users/:userId/bars', barsController);
 
