@@ -8,13 +8,15 @@ router.get('/', function(req, res) {
   User.findOne({username: req.params.username})
     .exec(function(err, user) {
       if (!user) {
-        res.render('errors/404')
+        res.render('errors/404.hbs')
       } else {
         res.render('users/show.hbs', {
           title: user.username,
           username: user.username,
           id: user._id,
-          bars: user.favoriteBars
+          bars: user.favoriteBars,
+          isSignedIn: (req.user.name !== null),
+          isOwner: (user.username === req.user.username)
         });
       }
     })

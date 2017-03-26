@@ -21,7 +21,7 @@ const app = express();
 mongoose.connect(process.env.MONGODB_URI);
 
 app.set('view engine', 'hbs')
-
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev'));
