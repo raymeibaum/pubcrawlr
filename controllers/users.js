@@ -48,11 +48,15 @@ router.patch('/', function(req, res) {
 
 });
 
-router.delete('/', auth.authorize, function(req, res) {
-  User.findByIdAndRemove(req.params.id)
-    .exec(function(err) {
-      res.redirect('/signup');
-    });
+router.delete('/', function(req, res) {
+  if (req.user.username === req.params.username) {
+    User.findOneAndRemove({username: req.user.username})
+      .exec(function(err) {
+        req.logout();
+        res.redirect('/signup');
+      });
+  }
+
 });
 
 module.exports = router;
