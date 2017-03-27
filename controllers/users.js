@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 
 const User = require('../models/user.js');
-const auth = require('../helpers/auth.js');
+// const auth = require('../helpers/auth.js');
 const bcrypt = require('bcrypt');
 
 router.get('/', function(req, res) {

@@ -30,6 +30,7 @@ router.post('/', function(req, res) {
         });
         user.favoriteBars.push(bar);
         user.save(function(err, user) {
+          if (err) { console.log(err); }
         });
         res.redirect(`/users/${req.params.username}`);
       });

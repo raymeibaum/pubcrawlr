@@ -19,6 +19,7 @@ const PubcrawlSchema = new Schema({
   startTime: Date,
   startBar: BarSchema,
   bars: [BarSchema],
+  transportation: String,
   specialInstructions: String,
   timestamps: {
     createdAt: Date,

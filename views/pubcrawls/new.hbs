@@ -8,36 +8,56 @@
     </div>
     <div class="form-group">
         <label for="pubcrawl-theme">Theme</label>
-        <input type="text" class="form-control" name="street" id="pubcrawl-theme">
+        <input type="text" class="form-control" name="theme" id="pubcrawl-theme">
     </div>
     <div class="form-group">
         <label for="pubcrawl-date">Date</label>
-        <input type="date" class="form-control" name="city" id="pubcrawl-date" required>
+        <input type="date" class="form-control" name="date" id="pubcrawl-date" required>
     </div>
     <div class="form-group">
         <label for="pubcrawl-startTime">Start Time</label>
-        <input type="time" class="form-control" name="city" id="pubcrawl-startTime" required>
+        <input type="time" class="form-control" name="startTime" id="pubcrawl-startTime" required>
     </div>
     <div class="form-group">
         <label for="pubcrawl-bars">Select Bars</label>
         {{#each bars}}
             <div class="checkbox">
                 <label>
-                  <input type="checkbox" value="{{this.name}}">
+                  <input type="checkbox" value="{{this._id}}" name="checkedBars">
                   {{this.name}}
                 </label>
             </div>
         {{/each}}
+        <p>Add more bars <a href="/users/{{username}}/bars/new"><strong>here</strong></a>.</p>
+    </div>
+
+    <div class="form-group">
+    <label for="pubcrawl-bars">Transportation</label>
+      <div class="radio">
+        <label>
+          <input type="radio" name="transportation" value="walking" checked>
+          Walking
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="transportation" value="partyBus">
+          Party Bus
+        </label>
+      </div>
     </div>
     <div class="form-group">
       <label for="pubcrawl-startBar">Start Bar</label>
-      <select class="form-control" id="pubcrawl-startBar" name="state">
+      <select class="form-control" id="pubcrawl-startBar" name="startBar">
         {{#each bars}}
-         <option value="{{this.name}}">{{this.name}}</option>
+         <option value="{{this._id}}">{{this.name}}</option>
          {{/each}}
        </select>
     </div>
-
+    <div class="form-group">
+        <label for="pubcrawl-specialInstructions">Special Instructions</label>
+        <textarea class="form-control" rows="3" name="specialInstructions"></textarea>
+    </div>
     <button type="submit" class="btn btn-success">Submit</button>
     <a class="btn btn-default" href="/" type="button" name="button">Cancel</a>
 </form>
