@@ -33,16 +33,6 @@ app.use(session({ secret: 'charliethewondermutt', resave: true, saveUninitialize
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(function(req, res, next) {
-//   console.log(req.body, req.params, req.user);
-//   if (req.params.username && req.user.username && (req.params.username === req.user.username)) {
-//     req.isOwner = true;
-//   } else {
-//     req.isOwner = false
-//   }
-//   next();
-// });
-
 app.use('/', sessionsController(passport));
 app.use('/users/:username', usersController);
 app.use('/users/:username/bars', barsController);
