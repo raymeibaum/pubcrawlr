@@ -35,9 +35,9 @@ UserSchema.pre('save', function(next) {
 const PubcrawlSchema = new Schema({
   name: String,
   theme: String,
-  data: Date,
-  startBar: BarSchema
-  bars: [BarSchema]
+  date: Date,
+  startBar: BarSchema,
+  bars: [BarSchema],
   timestamps: {
     createdAt: Date,
     updatedAt: Date

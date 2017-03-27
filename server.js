@@ -15,6 +15,7 @@ require('./helpers/passport.js')(passport);
 const usersController = require('./controllers/users.js');
 const sessionsController = require('./controllers/sessions.js');
 const barsController = require('./controllers/bars.js');
+const pubcrawlsController = require('./controllers/pubcrawls.js');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(passport.session());
 app.use('/', sessionsController(passport));
 app.use('/users/:username', usersController);
 app.use('/users/:username/bars', barsController);
+app.use('/users/:username/pubcrawls', pubcrawlsController);
 
 const db = mongoose.connection;
 db.on('error', function(err){

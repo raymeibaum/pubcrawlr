@@ -1,11 +1,31 @@
-<h3>{{username}}'s Profile</h3>
-<p><strong>Favorite Bars</strong></p>
+<div class="page-header">
+  <h2>{{username}}'s Profile</h2>
+</div>
+<h3>Favorite Bars</h3>
 <ul class="list-unstyled">
+  {{#if bars}}
   {{#each bars}}
   <li><a href="/users/{{../username}}/bars/{{this._id}}">{{this.name}}</a></li>
   {{/each}}
+  {{else}}
+  <li>No favorite bars!</li>
+  {{/if}}
 </ul>
 {{#if isOwner}}
-<hr>
+
 <a class="btn btn-default" href="/users/{{username}}/bars/new" type="button" name="button">Add Bar</a>
+{{/if}}
+<hr>
+<h3>Upcoming Pubcrawls</h3>
+<ul class="list-unstyled">
+  {{#if pubcrawls}}
+  {{#each pubcrawls}}
+  <li><a href="/users/{{../username}}/pubcrawls/{{this._id}}">{{this.name}}</a></li>
+  {{/each}}
+  {{else}}
+  <li>No upcoming pubcrawls!</li>
+  {{/if}}
+</ul>
+{{#if isOwner}}
+<a class="btn btn-default" href="/users/{{username}}/pubcrawls/new" type="button" name="button">Plan Pubcrawl</a>
 {{/if}}
