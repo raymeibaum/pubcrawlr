@@ -2,11 +2,11 @@
 <p><strong>Favorite Bars</strong></p>
 <ul class="list-unstyled">
   {{#each bars}}
-  <li><a href="/users/{{../id}}/bars/{{this._id}}">{{this.name}}</a></li>
+  <li><a href="/users/{{../username}}/bars/{{this._id}}">{{this.name}}</a></li>
   {{/each}}
 </ul>
 {{#if isOwner}}
-<a class="btn btn-default" href="/users/{{id}}/bars/new" type="button" name="button">Add Bar</a>
+<a class="btn btn-default" href="/users/{{username}}/bars/new" type="button" name="button">Add Bar</a>
 <hr>
-<a class="btn btn-primary" href="/users/{{id}}/edit" type="button" name="button">Account Settings</a>
+<a class="btn btn-primary" href="/users/{{username}}/edit" type="button" name="button">Account Settings</a>
 {{/if}}

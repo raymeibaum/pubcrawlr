@@ -13,9 +13,8 @@ router.get('/', function(req, res) {
         res.render('users/show.hbs', {
           title: user.username,
           username: user.username,
-          id: user._id,
           bars: user.favoriteBars,
-          isSignedIn: (req.user.name !== null),
+          isSignedIn: (name !== undefined),
           isOwner: (user.username === req.user.username)
         });
       }
