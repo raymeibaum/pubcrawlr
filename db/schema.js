@@ -32,10 +32,34 @@ UserSchema.pre('save', function(next) {
   next()
 });
 
+const PubcrawlSchema = new Schema({
+  name: String,
+  theme: String,
+  data: Date,
+  startBar: BarSchema
+  bars: [BarSchema]
+  timestamps: {
+    createdAt: Date,
+    updatedAt: Date
+  }
+});
+
+PubcrawlSchema.pre('save', function(next) {
+  let now = new Date();
+  this.timestamps.updatedAt = now;
+
+  if (!this.timestamps.createdAt) {
+    this.timestamps.createdAt = now
+  }
+  next()
+});
+
 const UserModel = mongoose.model('User', UserSchema);
 const BarModel = mongoose.model('Bar', BarSchema);
+const PubcrawlModel = mongoose.model('Pubcrawl', PubcrawlSchema);
 
 module.exports = {
   User: UserModel,
-  Bar: BarModel
+  Bar: BarModel,
+  Pubcrawl: PubcrawlModel
 }
