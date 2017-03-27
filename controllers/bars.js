@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 
-const auth = require('../helpers/auth.js');
+// const auth = require('../helpers/auth.js');
 const User = require('../models/user.js');
 const Bar = require('../models/bar.js');
 
 router.get('/new', function(req, res) {
-  if(req.isAuthenticated()) {
+  if(req.user && (req.params.username === req.user.username)) {
     res.render('bars/new.hbs', {
       title: 'Add Bar',
-      username: req.user.username
+      username: req.user.username,
+
     });
   } else {
     res.redirect('/login');
@@ -17,22 +18,26 @@ router.get('/new', function(req, res) {
 
 });
 
-router.post('/', auth.authorize, function(req, res) {
-  User.findById(req.params.userId)
-    .exec(function(err, user) {
-      const bar = new Bar({
-        name: req.body.name,
-        address: {
-          street: req.body.street,
-          city: req.body.city,
-          state: req.body.state
-        }
+router.post('/', function(req, res) {
+  if(req.user && (req.params.username === req.user.username)) {
+    User.findOne({username: req.params.username})
+      .exec(function(err, user) {
+        const bar = new Bar({
+          name: req.body.name,
+          address: {
+            street: req.body.street,
+            city: req.body.city,
+            state: req.body.state
+          }
+        });
+        user.favoriteBars.push(bar);
+        user.save(function(err, user) {
+        });
+        res.redirect(`/users/${req.params.username}`);
       });
-      user.favoriteBars.push(bar);
-      user.save(function(err, user) {
-      });
-      res.redirect(`/users/${req.params.userId}`);
-    });
+  } else {
+    res.redirect('/login');
+  }
 });
 
 router.get('/:id', function(req, res) {
@@ -59,7 +64,8 @@ router.get('/:id/edit', function(req, res) {
         res.render('bars/edit.hbs', {
           title: bar.name,
           bar: bar,
-          username: req.params.username
+          username: req.params.username,
+          isAuthenticated: req.isAuthenticated()
         });
       });
   } else {
