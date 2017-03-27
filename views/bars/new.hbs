@@ -1,5 +1,5 @@
 <h3>Add Bar</h3>
-<form action="/users/{{id}}/bars/" method="POST">
+<form action="/users/{{username}}/bars/" method="POST">
   <div class="form-group">
     <label for="address-name">Name</label>
     <input type="text" class="form-control" name="name" id="address-name" autofocus required>
@@ -70,5 +70,5 @@
   </div>
 
   <button type="submit" class="btn btn-success">Submit</button>
-  <a class="btn btn-default" href="/users/{{id}}" type="button" name="button">Cancel</a>
+  <a class="btn btn-default" href="/" type="button" name="button">Cancel</a>
 </form>

@@ -1,10 +1,13 @@
+<h3>Bar Details</h3>
 <address>
   <strong>{{bar.name}}</strong><br>
   {{bar.address.street}}<br>
   {{bar.address.city}}, {{bar.address.state}}<br>
 </address>
+{{#if isOwner}}
 <hr>
-<form action="/users/{{userId}}/bars/{{bar._id}}?_method=DELETE" method="post">
-  <a class="btn btn-primary" href="/users/{{userId}}/bars/{{bar._id}}/edit" type="button" name="button">Edit</a>
+<form action="/users/{{username}}/bars/{{bar._id}}?_method=DELETE" method="post">
+  <a class="btn btn-primary" href="/users/{{username}}/bars/{{bar._id}}/edit" type="button" name="button">Edit</a>
   <button class="btn btn-danger" type="submit" name="button">Delete</button>
 </form>
+{{/if}}

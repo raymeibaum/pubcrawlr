@@ -1,5 +1,5 @@
 <h3>Edit {{bar.name}}</h3>
-<form action="/users/{{userId}}/bars/{{bar._id}}?_method=PATCH" method="POST">
+<form action="/users/{{username}}/bars/{{bar._id}}?_method=PATCH" method="POST">
   <div class="form-group">
     <label for="address-name">Name</label>
     <input type="text" class="form-control" name="name" id="address-name" value="{{bar.name}}" autofocus required>
@@ -70,7 +70,7 @@
   </div>
 
   <button type="submit" class="btn btn-success">Submit</button>
-  <a class="btn btn-default" href="/users/{{userId}}/bars/{{bar._id}}" type="button" name="button">Cancel</a>
+  <a class="btn btn-default" href="/users/{{username}}/bars/{{bar._id}}" type="button" name="button">Cancel</a>
 </form>
 <script type="text/javascript">
   $('option[value="{{bar.address.state}}"]').attr('selected', true);
