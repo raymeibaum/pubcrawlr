@@ -6,6 +6,7 @@ const auth = require('../helpers/auth.js');
 const bcrypt = require('bcrypt');
 
 router.get('/', function(req, res) {
+  let isOwner = req.user && (req.params.username === req.user.username);
   User.findOne({username: req.params.username})
     .exec(function(err, user) {
       if (!user) {
@@ -16,6 +17,7 @@ router.get('/', function(req, res) {
           username: user.username,
           bars: user.favoriteBars,
           isAuthenticated: req.isAuthenticated(),
+          isOwner: isOwner
         });
       }
     });
