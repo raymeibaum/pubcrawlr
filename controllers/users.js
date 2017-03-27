@@ -16,6 +16,7 @@ router.get('/', function(req, res) {
           title: user.username,
           username: user.username,
           bars: user.favoriteBars,
+          pubcrawls: user.pubcrawls,
           isAuthenticated: req.isAuthenticated(),
           isOwner: isOwner
         });
@@ -24,12 +25,16 @@ router.get('/', function(req, res) {
 });
 
 router.get('/edit', function(req, res) {
+  if (req.user && (req.params.username === req.user.username)) {
   res.render('users/edit.hbs', {
     title: req.user.username,
     username: req.user.username,
     isAuthenticated: req.isAuthenticated(),
     message: req.flash('error')
   });
+} else {
+  res.redirect('/login');
+}
 });
 
 router.patch('/', function(req, res) {
@@ -51,7 +56,7 @@ router.patch('/', function(req, res) {
 });
 
 router.delete('/', function(req, res) {
-  if (req.user.username === req.params.username) {
+  if (req.user && (req.params.username === req.user.username)) {
     User.findOneAndRemove({username: req.user.username})
       .exec(function(err) {
         req.logout();

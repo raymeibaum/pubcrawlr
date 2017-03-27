@@ -12,10 +12,35 @@ const BarSchema = new Schema({
   }
 });
 
+const PubcrawlSchema = new Schema({
+  name: String,
+  theme: String,
+  date: Date,
+  startTime: Date,
+  startBar: BarSchema,
+  bars: [BarSchema],
+  specialInstructions: String,
+  timestamps: {
+    createdAt: Date,
+    updatedAt: Date
+  }
+});
+
+PubcrawlSchema.pre('save', function(next) {
+  let now = new Date();
+  this.timestamps.updatedAt = now;
+
+  if (!this.timestamps.createdAt) {
+    this.timestamps.createdAt = now
+  }
+  next()
+});
+
 const UserSchema = new Schema({
   username: String,
   passwordDigest: String,
   favoriteBars: [BarSchema],
+  pubcrawls: [PubcrawlSchema],
   timestamps: {
     createdAt: Date,
     updatedAt: Date
@@ -32,27 +57,7 @@ UserSchema.pre('save', function(next) {
   next()
 });
 
-const PubcrawlSchema = new Schema({
-  name: String,
-  theme: String,
-  date: Date,
-  startBar: BarSchema,
-  bars: [BarSchema],
-  timestamps: {
-    createdAt: Date,
-    updatedAt: Date
-  }
-});
 
-PubcrawlSchema.pre('save', function(next) {
-  let now = new Date();
-  this.timestamps.updatedAt = now;
-
-  if (!this.timestamps.createdAt) {
-    this.timestamps.createdAt = now
-  }
-  next()
-});
 
 const UserModel = mongoose.model('User', UserSchema);
 const BarModel = mongoose.model('Bar', BarSchema);

@@ -1,0 +1,43 @@
+<div class="page-header">
+    <h2>New Pubcrawl</h2>
+</div>
+<form action="/users/{{username}}/pubcrawls/" method="POST">
+    <div class="form-group">
+        <label for="pubcrawl-name">Name</label>
+        <input type="text" class="form-control" name="name" id="pubcrawl-name" autofocus required>
+    </div>
+    <div class="form-group">
+        <label for="pubcrawl-theme">Theme</label>
+        <input type="text" class="form-control" name="street" id="pubcrawl-theme">
+    </div>
+    <div class="form-group">
+        <label for="pubcrawl-date">Date</label>
+        <input type="date" class="form-control" name="city" id="pubcrawl-date" required>
+    </div>
+    <div class="form-group">
+        <label for="pubcrawl-startTime">Start Time</label>
+        <input type="time" class="form-control" name="city" id="pubcrawl-startTime" required>
+    </div>
+    <div class="form-group">
+        <label for="pubcrawl-bars">Select Bars</label>
+        {{#each bars}}
+            <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="{{this.name}}">
+                  {{this.name}}
+                </label>
+            </div>
+        {{/each}}
+    </div>
+    <div class="form-group">
+      <label for="pubcrawl-startBar">Start Bar</label>
+      <select class="form-control" id="pubcrawl-startBar" name="state">
+        {{#each bars}}
+         <option value="{{this.name}}">{{this.name}}</option>
+         {{/each}}
+       </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+    <a class="btn btn-default" href="/" type="button" name="button">Cancel</a>
+</form>

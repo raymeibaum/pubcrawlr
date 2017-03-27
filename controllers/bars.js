@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 
-// const auth = require('../helpers/auth.js');
 const User = require('../models/user.js');
 const Bar = require('../models/bar.js');
 
@@ -10,12 +9,11 @@ router.get('/new', function(req, res) {
     res.render('bars/new.hbs', {
       title: 'Add Bar',
       username: req.user.username,
-
+      isAuthenticated: req.isAuthenticated()
     });
   } else {
     res.redirect('/login');
   }
-
 });
 
 router.post('/', function(req, res) {
