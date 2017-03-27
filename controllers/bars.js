@@ -67,26 +67,35 @@ router.get('/:id/edit', function(req, res) {
   }
 });
 
-router.patch('/:id', auth.authorize, function(req, res) {
-  User.findById(req.params.userId)
-    .exec(function(err, user) {
-      const bar = user.favoriteBars.id(req.params.id);
-        bar.name = req.body.name;
-        bar.address.street = req.body.street;
-        bar.address.city = req.body.city;
-        bar.address.state = req.body.state;
-        user.save();
-        res.redirect(`/users/${req.params.userId}/bars/${req.params.id}`);
-    });
+router.patch('/:id', function(req, res) {
+  if (req.user && (req.params.username === req.user.username)) {
+    User.findOne({username: req.params.username})
+      .exec(function(err, user) {
+        const bar = user.favoriteBars.id(req.params.id);
+          bar.name = req.body.name;
+          bar.address.street = req.body.street;
+          bar.address.city = req.body.city;
+          bar.address.state = req.body.state;
+          user.save();
+          res.redirect(`/users/${req.params.username}/bars/${req.params.id}`);
+      });
+  } else {
+    redirect('/login');
+  }
 });
 
-router.delete('/:id', auth.authorize, function(req, res) {
-  User.findById(req.params.userId)
-    .exec(function(err, user) {
-      user.favoriteBars.id(req.params.id).remove()
-      user.save();
-      res.redirect(`/users/${req.params.userId}`);
-    });
+
+router.delete('/:id', function(req, res) {
+  if (req.user && (req.params.username === req.user.username)) {
+    User.findOne({username: req.params.username})
+      .exec(function(err, user) {
+        user.favoriteBars.id(req.params.id).remove()
+        user.save();
+        res.redirect(`/`);
+      });
+  } else {
+    res.redirect('/login');
+  }
 })
 
 module.exports = router;
