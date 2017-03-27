@@ -28,16 +28,17 @@ router.post('/', function(req, res) {
   if(req.user && (req.params.username === req.user.username)) {
     User.findOne({username: req.params.username})
       .exec(function(err, user) {
-        let pubcrawl = new Pubcrawl({
-          name: req.body.name,
-          theme: req.body.theme,
-          date: new Date(req.body.date),
-          startTime: new Date(req.body.startTime),
-          startBar: req.body.startBar,
-          bars: [req.body.checkedBars],
-          transportation: req.body.transportation,
-          specialInstructions: req.body.specialInstructions
-        });
+        let pubcrawl = new Pubcrawl()
+          pubcrawl.name = req.body.name;
+          pubcrawl.theme = req.body.theme;
+          pubcrawl.date = req.body.date;
+          pubcrawl.startTime = req.body.startTime;
+          pubcrawl.startBar = req.body.startBar;
+          req.body.checkedBars.forEach(function(checkedBar)) {
+            pubcrawl.push(element);
+          }
+          pubcrawl.transportation = req.body.transportation;
+          pubcrawl.specialInstructions = req.body.specialInstructions;
         user.pubcrawls.push(pubcrawl);
         user.save(function(err, user) {
           if (err) { console.log(err); }
