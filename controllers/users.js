@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 
 const User = require('../models/user.js');
-const auth = require('../helpers/auth.js')
+const auth = require('../helpers/auth.js');
+const bcrypt = require('bcrypt');
 
 router.get('/', function(req, res) {
   User.findOne({username: req.params.username})
@@ -14,43 +15,44 @@ router.get('/', function(req, res) {
           title: user.username,
           username: user.username,
           bars: user.favoriteBars,
-          isSignedIn: (name !== undefined),
-          isOwner: (user.username === req.user.username)
+          isAuthenticated: req.isAuthenticated(),
         });
       }
-    })
+    });
 });
 
-router.get('/edit', auth.authorize, function(req, res) {
+router.get('/edit', function(req, res) {
   res.render('users/edit.hbs', {
-    title: req.session.currentUser.username,
-    username: req.session.currentUser.username,
-    id: req.session.currentUser._id
+    title: req.user.username,
+    username: req.user.username,
+    isAuthenticated: req.isAuthenticated(),
+    message: req.flash('error')
   });
 });
 
-router.patch('/', auth.createSecure, function(req, res) {
-  User.findOne({username: req.body.username})
-    .exec(function(err, user) {
-      if (!user) {
-        User.findByIdAndUpdate(req.params.id, {
-          username: req.body.username,
-          passwordDigest: res.hashedPassword
-        }, {new: true})
-          .exec(function(err, user) {
-            req.session.currentUser = user;
-            res.redirect('/');
-          });
-      } else {
-        //res.flash('Username taken.')
-      }
-    });
-})
+router.patch('/', function(req, res) {
+  if (req.body.password === req.body.confirmPassword) {
+    if (req.isAuthenticated() && req.user.username === req.params.username) {
+      User.findOneAndUpdate({username: req.params.username}, {
+        passwordDigest: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
+      }, {new: true})
+      .exec(function(err, user) {
+        if (err) { console.log(err); }
+        res.redirect(`/users/${req.params.username}`);
+      })
+    }
+  } else {
+    req.flash('error', "Passwords don't match.");
+    res.redirect(`/users/${req.params.username}/edit`);
+  }
+
+});
 
 router.delete('/', auth.authorize, function(req, res) {
   User.findByIdAndRemove(req.params.id)
     .exec(function(err) {
       res.redirect('/signup');
-    })
-})
+    });
+});
+
 module.exports = router;

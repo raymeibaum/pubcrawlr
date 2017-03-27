@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
 const User = require('../models/user');
@@ -36,6 +35,11 @@ let bar3 = new Bar({
 });
  User.findOne({username: 'ray'})
   .exec(function(err, user) {
+    if (err) console.log(err);
     user.favoriteBars.push(bar1, bar2, bar3);
-    user.save();
-  })
+    user.save(function(err, user) {
+      if (err) console.log(err);
+      console.log(user);
+      mongoose.connection.close();
+    });
+  });

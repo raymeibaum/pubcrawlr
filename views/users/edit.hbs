@@ -1,9 +1,5 @@
 <h3>Account Settings</h3>
-<form action="/users/{{id}}?_method=PATCH" method="POST">
-  <div class="form-group">
-    <label for="username">Change Username</label>
-    <input type="text" class="form-control" name="username" id="username" value="{{username}}" required>
-  </div>
+<form action="/users/{{username}}?_method=PATCH" method="POST">
   <div class="form-group">
     <label for="login-password">Change Password</label>
     <input type="password" class="form-control" name="password" id="login-password" required>
@@ -13,9 +9,9 @@
     <input type="password" class="form-control" name="confirmPassword" id="signup-password-confirm" required>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-  <a class="btn btn-default" href="/users/{{id}}" type="button" name="button">Cancel</a>
+  <a class="btn btn-default" href="/users/{{username}}" type="button" name="button">Cancel</a><span class="text-danger"> <strong>{{message}}</strong></span>
 </form>
 <hr>
-<form action="/users/{{id}}?_method=DELETE" method="post">
+<form action="/users/{{username}}?_method=DELETE" method="post">
   <button class="btn btn-danger" type="submit" name="button">Delete Account</button>
 </form>

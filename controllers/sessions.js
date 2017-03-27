@@ -5,6 +5,7 @@ const User = require('../models/user.js');
 const auth = require('../helpers/auth.js');
 
 module.exports = function(passport) {
+
   router.get('/', function(req, res) {
     if(req.user) {
       res.redirect(`/users/${req.user.username}`);
@@ -44,6 +45,21 @@ module.exports = function(passport) {
   router.get('/logout', function(req, res) {
     req.logout()
     res.render('sessions/logout.hbs');
+  });
+
+  router.get('/settings', function(req, res) {
+    if (req.user) {
+      User.findOne({username: req.user.username})
+        .exec(function(err, user) {
+          if (!user) {
+            res.render('errors/404.hbs')
+          } else {
+            res.redirect(`/users/${req.user.username}/edit`)
+          }
+        });
+    } else {
+      res.redirect('/login');
+    }
   });
 
   return router;

@@ -30,7 +30,7 @@ function(req, username, password, done) {
           passwordDigest: bcrypt.hashSync(password, bcrypt.genSaltSync(10))
         });
         newUser.save(function(err, user) {
-          if (err) throw err;
+          if (err) { return done(err); }
           return done(null, user);
         });
       }
@@ -51,4 +51,5 @@ function(req, username, password, done) {
     })
   }
 ));
+
 }
