@@ -28,7 +28,6 @@ router.get('/:id', function(req, res) {
       res.render('pubcrawls/show', {
         title: pubcrawl.name,
         pubcrawl: pubcrawl,
-        formattedTime: pubcrawl.when.toLocaleString(),
         username: req.params.username,
         isAuthenticated: req.isAuthenticated(),
         isOwner: req.user && (req.user.username === req.params.username)
@@ -44,8 +43,6 @@ router.get('/:id/edit', function(req, res) {
         res.render('pubcrawls/edit.hbs', {
           title: pubcrawl.name,
           pubcrawl: pubcrawl,
-          when: pubcrawl.when.toLocaleString(),
-          date: `${pubcrawl.when.getFullYear()}-${pubcrawl.when.getMonth()}-${pubcrawl.when.getMinutes()}`,
           bars: user.favoriteBars,
           username: req.params.username,
           isAuthenticated: req.isAuthenticated()
@@ -64,11 +61,16 @@ router.post('/', function(req, res) {
 
         pubcrawl.name = req.body.name;
         pubcrawl.theme = req.body.theme;
-        pubcrawl.when = new Date(req.body.date + ' ' + req.body.time);
+        pubcrawl.date = req.body.date;
+        pubcrawl.time = req.body.time;
         pubcrawl.startBar = user.favoriteBars.id(req.body.startBar)
+
+        Array.isArray(req.body.checkedBars) ?
         req.body.checkedBars.forEach(function(checkedBar) {
           pubcrawl.bars.push(user.favoriteBars.id(checkedBar));
-        });
+        }) :
+        pubcrawl.bars.push(user.favoriteBars.id(req.body.checkedBars));
+
         pubcrawl.transportation = req.body.transportation;
         pubcrawl.specialInstructions = req.body.specialInstructions;
 
@@ -83,23 +85,27 @@ router.post('/', function(req, res) {
   }
 });
 
-router.patch('/:id', function(req, res) {
+router.put('/:id', function(req, res) {
   if (req.user && (req.params.username === req.user.username)) {
     User.findOne({username: req.params.username})
       .exec(function(err, user) {
         let pubcrawl = user.pubcrawls.id(req.params.id);
         pubcrawl.name = req.body.name;
         pubcrawl.theme = req.body.theme;
-        pubcrawl.when = new Date(req.body.date + ' ' + req.body.time);
-
+        pubcrawl.date = req.body.date;
+        pubcrawl.time = req.body.time;
         pubcrawl.startBar = user.favoriteBars.id(req.body.startBar)
+
+        Array.isArray(req.body.checkedBars) ?
         req.body.checkedBars.forEach(function(checkedBar) {
           pubcrawl.bars.push(user.favoriteBars.id(checkedBar));
-        });
+        }) :
+        pubcrawl.bars.push(user.favoriteBars.id(req.body.checkedBars));
+
         pubcrawl.transportation = req.body.transportation;
         pubcrawl.specialInstructions = req.body.specialInstructions;
           user.save();
-          res.redirect(`/users/${req.params.username}/bars/${req.params.id}`);
+          res.redirect(`/users/${req.params.username}/pubcrawls/${req.params.id}`);
       });
   } else {
     redirect('/login');

@@ -15,7 +15,8 @@ const BarSchema = new Schema({
 const PubcrawlSchema = new Schema({
   name: String,
   theme: String,
-  when: Date,
+  date: String,
+  time: String,
   startBar: BarSchema,
   bars: [BarSchema],
   transportation: String,
