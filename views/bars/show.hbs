@@ -1,11 +1,19 @@
 <div class="page-header">
   <h2>Bar Details</h2>
 </div>
-<address>
-  <strong>{{bar.name}}</strong><br>
-  {{bar.address.street}}<br>
-  {{bar.address.city}}, {{bar.address.state}}<br>
-</address>
+<div class="row">
+  <div class="col-sm-6">
+    <img id="bar-map" class="img-responsive img-rounded" src="https://maps.googleapis.com/maps/api/staticmap?center={{bar.address.street}},{{bar.address.city}},{{bar.address.state}}&zoom=19&scale=2&size=640x400&maptype=roadmap&key=AIzaSyAn-YPeFOabuOn1-LPmJfOTj4UieSMDfOk">
+  </div>
+  <div class="col-sm-6">
+    <h4>{{bar.name}}</h4>
+    <address>
+      {{bar.address.street}}<br>
+      {{bar.address.city}}, {{bar.address.state}}<br>
+    </address>
+  </div>
+</div>
+
 {{#if isOwner}}
 <hr>
 <form action="/users/{{username}}/bars/{{bar._id}}?_method=DELETE" method="post">
@@ -13,3 +21,4 @@
   <button class="btn btn-danger" type="submit" name="button">Delete</button>
 </form>
 {{/if}}
+<script src="/js/google.js"></script>

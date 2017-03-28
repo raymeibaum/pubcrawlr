@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
+const google = require('../helpers/google.js');
 
 const User = require('../models/user.js');
 const Bar = require('../models/bar.js');
@@ -52,6 +53,8 @@ router.get('/:id', function(req, res) {
       });
     });
 });
+
+router.get('/:id')
 
 router.get('/:id/edit', function(req, res) {
   if (req.user && (req.params.username === req.user.username)) {
