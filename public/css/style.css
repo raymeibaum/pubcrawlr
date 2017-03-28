@@ -4,3 +4,6 @@ body {
 img#bar-map {
   margin-bottom: 20px
 }
+div#google-map {
+  height: 100%;
+}
