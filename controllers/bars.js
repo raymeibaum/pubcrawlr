@@ -43,7 +43,6 @@ router.get('/:id', function(req, res) {
   User.findOne({username: req.params.username})
     .exec(function(err, user) {
       const bar = user.favoriteBars.id(req.params.id);
-      console.log(bar);
       res.render('bars/show.hbs', {
         title: bar.name,
         bar: bar,
@@ -59,7 +58,6 @@ router.get('/:id/edit', function(req, res) {
     User.findOne({username: req.params.username})
       .exec(function(err, user) {
         const bar = user.favoriteBars.id(req.params.id);
-        console.log(bar);
         res.render('bars/edit.hbs', {
           title: bar.name,
           bar: bar,

@@ -44,7 +44,9 @@ module.exports = function(passport) {
 
   router.get('/logout', function(req, res) {
     req.logout()
-    res.render('sessions/logout.hbs');
+    res.render('sessions/logout.hbs', {
+      title: 'Log out'
+    });
   });
 
   router.get('/settings', function(req, res) {

@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h2>{{pubcrawl.name}}</h2>
+</div>
+<strong>When</strong>
+<p>{{formattedTime}}</p>
+<strong>Theme</strong>
+<p>{{pubcrawl.theme}}</p>
+<strong>Bars</strong>
+<ul class="list-unstyled">
+  {{#each pubcrawl.bars}}
+<li><a href="/users/{{../username}}/bars/{{this._id}}">{{this.name}}</a><br>{{this.address.street}}<br>{{this.address.city}}, {{this.address.state}}</li><br>
+  {{/each}}
+</ul>
+<strong>Starting at</strong>
+<p><a href="/users/{{username}}/bars/{{pubcrawl.startBar._id}}">{{pubcrawl.startBar.name}}</a></p>
+<strong>Transportation method</strong>
+<p>{{pubcrawl.transportation}}</p>
+<strong>Special instructions</strong>
+<p>{{pubcrawl.specialInstructions}}</p>
+{{#if isOwner}}
+<hr>
+<form action="/users/{{username}}/pubcrawls/{{pubcrawl._id}}?_method=DELETE" method="post">
+  <a class="btn btn-primary" href="/users/{{username}}/pubcrawls/{{pubcrawl._id}}/edit" type="button" name="button">Edit</a>
+  <button class="btn btn-danger" type="submit" name="button">Delete</button>
+</form>
+{{/if}}

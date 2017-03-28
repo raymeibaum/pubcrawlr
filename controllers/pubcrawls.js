@@ -21,22 +21,39 @@ router.get('/new', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
+  User.findOne({username: req.params.username})
+    .exec(function(err, user) {
+      let pubcrawl = user.pubcrawls.id(req.params.id);
+      console.log(pubcrawl);
+      res.render('pubcrawls/show', {
+        title: pubcrawl.name,
+        pubcrawl: pubcrawl,
+        formattedTime: pubcrawl.when.toLocaleString(),
+        username: req.params.username,
+        isAuthenticated: req.isAuthenticated(),
+        isOwner: req.user && (req.user.username === req.params.username)
+      });
+    });
+});
 
+router.get(':id/edit', function(req, res) {
+  
 })
 
 router.post('/', function(req, res) {
+    // res.json(req.body);
   if(req.user && (req.params.username === req.user.username)) {
     User.findOne({username: req.params.username})
       .exec(function(err, user) {
         let pubcrawl = new Pubcrawl()
           pubcrawl.name = req.body.name;
           pubcrawl.theme = req.body.theme;
-          pubcrawl.date = req.body.date;
-          pubcrawl.startTime = req.body.startTime;
-          pubcrawl.startBar = req.body.startBar;
-          req.body.checkedBars.forEach(function(checkedBar)) {
-            pubcrawl.push(element);
-          }
+          pubcrawl.when = new Date(req.body.date + ' ' + req.body.time);
+
+          pubcrawl.startBar = user.favoriteBars.id(req.body.startBar)
+          req.body.checkedBars.forEach(function(checkedBar) {
+            pubcrawl.bars.push(user.favoriteBars.id(checkedBar));
+          });
           pubcrawl.transportation = req.body.transportation;
           pubcrawl.specialInstructions = req.body.specialInstructions;
         user.pubcrawls.push(pubcrawl);
@@ -47,6 +64,18 @@ router.post('/', function(req, res) {
       })
 
   }
-})
+});
 
+router.delete('/:id', function(req, res) {
+  if (req.user && (req.params.username === req.user.username)) {
+    User.findOne({username: req.params.username})
+      .exec(function(err, user) {
+        user.pubcrawls.id(req.params.id).remove()
+        user.save();
+        res.redirect(`/`);
+      });
+  } else {
+    res.redirect('/login');
+  }
+})
 module.exports = router;
