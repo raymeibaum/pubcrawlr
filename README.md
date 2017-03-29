@@ -1,16 +1,36 @@
-# 🍻 pubcrawl-planner 🍻
+# 🍺 pubcrawlr
 
-Pubcrawl planner is a MEN stack application that allows users to plan pubcrawls based on their favorite bars.
+**A MEN stack application that allows users to plan pubcrawls based on their favorite bars.**
 
-## 🍺 Deployment
+## Deployment
 Deployed to Heroku [here](https://pubcrawlr.herokuapp.com/).
 
-## 🍺 User Stories
+## Features
+- Complete user login/registration
+- Fully responsive design
+- Users can add their favorite bars and then plan pubcrawls 
 
+## Technologies
+- MongoDB document database featuring CRUD operations on three models: User, Bars, and Pubrawls.
+- Bootstrap for responsiveness
+- Google search and maps API for displaying bar locations as well as allowing the user to search for their favorite bars.
+
+##  User Stories
 Link to trello board can be found [here](https://trello.com/b/gTpgYyxn/pubcrawl-planner).
 
-## 🍺 ERDs
+## ERDs
 
+| Pubcrawl |
+| --- |
+| name: String |
+| date: String |
+| time: String |
+| theme: String |
+| transportation: String |
+| specialInstructions: String |
+| bars: [bar] |
+| startBar: bar | 
+# ↑
 | User |
 | --- |
 | username: String |
@@ -19,13 +39,7 @@ Link to trello board can be found [here](https://trello.com/b/gTpgYyxn/pubcrawl-
 | pubcrawls: [pubcrawl] |
 | timestamp: createdAt: Date |
 | timestamp: updatedAt: Date |
-# ⬇
-| Pubcrawl |
-| --- |
-| name: String |
-| date: Date |
-| locations: [bar] | 
-# ⬇
+# ↓
 | Bar |
 | --- |
 | name: String |
@@ -33,7 +47,7 @@ Link to trello board can be found [here](https://trello.com/b/gTpgYyxn/pubcrawl-
 | location: city: String |
 | location: state: String |
 
-## 🍺 Wireframes
+## Wireframes
 ![login](./resources/images/login.png)
 ![signup](./resources/images/signup.png)
 ![user-show](./resources/images/user-show.png)
