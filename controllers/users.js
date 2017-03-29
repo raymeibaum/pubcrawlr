@@ -26,7 +26,7 @@ router.get('/', function(req, res) {
 router.get('/edit', function(req, res) {
   if (req.user && (req.params.username === req.user.username)) {
   res.render('users/edit.hbs', {
-    title: req.user.username,
+    title: 'Account Settings',
     username: req.user.username,
     isAuthenticated: req.isAuthenticated(),
     message: req.flash('error')

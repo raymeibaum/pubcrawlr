@@ -85,7 +85,7 @@ router.post('/', function(req, res) {
   }
 });
 
-router.put('/:id', function(req, res) {
+router.patch('/:id', function(req, res) {
   if (req.user && (req.params.username === req.user.username)) {
     User.findOne({username: req.params.username})
       .exec(function(err, user) {
@@ -95,13 +95,14 @@ router.put('/:id', function(req, res) {
         pubcrawl.date = req.body.date;
         pubcrawl.time = req.body.time;
         pubcrawl.startBar = user.favoriteBars.id(req.body.startBar)
-
-        Array.isArray(req.body.checkedBars) ?
-        req.body.checkedBars.forEach(function(checkedBar) {
-          pubcrawl.bars.push(user.favoriteBars.id(checkedBar));
-        }) :
-        pubcrawl.bars.push(user.favoriteBars.id(req.body.checkedBars));
-
+        if (req.body.checkedBars) {
+          pubcrawl.bars = [];
+          Array.isArray(req.body.checkedBars) ?
+          req.body.checkedBars.forEach(function(checkedBar) {
+            pubcrawl.bars.push(user.favoriteBars.id(checkedBar));
+          }) :
+          pubcrawl.bars.push(user.favoriteBars.id(req.body.checkedBars));
+        }
         pubcrawl.transportation = req.body.transportation;
         pubcrawl.specialInstructions = req.body.specialInstructions;
           user.save();

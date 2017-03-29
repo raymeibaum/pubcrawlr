@@ -16,8 +16,4 @@ router.get('/search', function(req, res) {
   })
 })
 
-// router.get('/nearby', function(req, res) {
-//
-// })
-
 module.exports = router
