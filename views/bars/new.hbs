@@ -4,16 +4,20 @@
 <div class="jumbotron">
   <form class="text-center" id="location-search">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Enter a location" required>
+      <input type="text" class="form-control" id="search-location" placeholder="Enter a location" required>
       <div class="input-group-btn">
         <button type="button" class="btn btn-info" id="get-current-location"><i class="fa fa-location-arrow" aria-hidden="true"></i></button>
         <button type="submit" class="btn btn-primary">Search</button>
       </div>
     </div>
   </form>
-  <div id="bar-container">
-    <ul class="list-unstyled" id="bar-list"></ul>
-  </div>
+  <form id='search-results-select'>
+    <div class="form-group">
+      <label for="search-results">Results</label>
+      <select class="form-control" id="search-results" name="searchResults" disabled>
+      </select>
+    </div>
+  </form>
 </div>
 <form action="/users/{{username}}/bars/" method="POST">
   <div class="form-group">

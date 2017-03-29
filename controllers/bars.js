@@ -33,7 +33,7 @@ router.post('/', function(req, res) {
         user.save(function(err, user) {
           if (err) { console.log(err); }
         });
-        res.redirect(`/users/${req.params.username}`);
+        res.redirect(`/`);
       });
   } else {
     res.redirect('/login');
