@@ -28,7 +28,7 @@ function display(locations) {
   $resultsSelect.empty();
   $resultsSelect.removeAttr('disabled');
   locations.forEach(function(location) {
-    $resultsSelect.append(`<option class="search-results" data-address="${location.formatted_address}">${location.name}</option`)
+    $resultsSelect.append(`<option class="search-results" data-address="${location.formatted_address}">${location.name}</option`);
   });
 }
 
