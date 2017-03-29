@@ -35,7 +35,7 @@ function display(locations) {
 function moveToForm(event) {
   event.preventDefault();
 
-  // Getting the address data required from data-address and breaking it up
+  // Getting the address data required from data-address attribute and breaking it up
   let selectedName = $resultsSelect.find(":selected").text();
   let selectedAddress = $resultsSelect.find(":selected").data('address');
   let addressArray = selectedAddress.split(',');
@@ -52,14 +52,18 @@ function getLocation() {
     $inputLocation.val('Retrieving location..')
     navigator.geolocation.getCurrentPosition(function(position) {
       resolve(position.coords);
+    }, function() {
+      reject();
     });
   })
   retrieveLocation.then(function(coords){
-    console.log(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=AIzaSyAn-YPeFOabuOn1-LPmJfOTj4UieSMDfOk`);
     $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=AIzaSyAn-YPeFOabuOn1-LPmJfOTj4UieSMDfOk`, function(data) {
       $inputLocation.val(data.results[0].formatted_address);
     })
   });
+  retrieveLocation.catch(function() {
+    $inputLocation.val('Location could not be determined');
+  })
 }
 
 $(function(){
