@@ -32,9 +32,9 @@ PubcrawlSchema.pre('save', function(next) {
   this.timestamps.updatedAt = now;
 
   if (!this.timestamps.createdAt) {
-    this.timestamps.createdAt = now
+    this.timestamps.createdAt = now;
   }
-  next()
+  next();
 });
 
 const UserSchema = new Schema({
@@ -53,9 +53,9 @@ UserSchema.pre('save', function(next) {
   this.timestamps.updatedAt = now;
 
   if (!this.timestamps.createdAt) {
-    this.timestamps.createdAt = now
+    this.timestamps.createdAt = now;
   }
-  next()
+  next();
 });
 
 

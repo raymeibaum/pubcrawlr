@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
   User.findOne({username: req.params.username})
     .exec(function(err, user) {
       if (!user) {
-        res.render('errors/404.hbs')
+        res.render('errors/404.hbs');
       } else {
         res.render('users/show.hbs', {
           title: user.username,

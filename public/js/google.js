@@ -49,30 +49,29 @@ function moveToForm(event) {
 
 function getLocation() {
   let retrieveLocation = new Promise(function(resolve, reject) {
-    $inputLocation.val('Retrieving location..')
+    $inputLocation.val('Retrieving location..');
     navigator.geolocation.getCurrentPosition(function(position) {
       resolve(position.coords);
     }, function() {
       reject();
     });
-  })
+  });
   retrieveLocation.then(function(coords){
     $.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=AIzaSyAn-YPeFOabuOn1-LPmJfOTj4UieSMDfOk`, function(data) {
       $inputLocation.val(data.results[0].formatted_address);
-    })
+    });
   });
   retrieveLocation.catch(function() {
     $inputLocation.val('Location could not be determined');
-  })
+  });
 }
 
 $(function(){
   $('form#location-search').on('submit', getResults);
   $resultsSelect.on('change', moveToForm);
   if ("geolocation" in navigator) {
-    $getLocationButton.on('click', getLocation)
+    $getLocationButton.on('click', getLocation);
   } else {
     $getLocationButton.attr('disabled', 'true');
   }
-
-})
+});

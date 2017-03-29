@@ -33,6 +33,7 @@ let bar3 = new Bar({
     state: 'LA'
   }
 });
+
  User.findOne({username: 'ray'})
   .exec(function(err, user) {
     if (err) console.log(err);

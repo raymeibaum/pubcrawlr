@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/user.js');
-// const auth = require('../helpers/auth.js');
 
 module.exports = function(passport) {
 

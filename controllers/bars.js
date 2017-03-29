@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
-const google = require('../helpers/google.js');
 
 const User = require('../models/user.js');
 const Bar = require('../models/bar.js');
@@ -95,13 +94,13 @@ router.delete('/:id', function(req, res) {
   if (req.user && (req.params.username === req.user.username)) {
     User.findOne({username: req.params.username})
       .exec(function(err, user) {
-        user.favoriteBars.id(req.params.id).remove()
+        user.favoriteBars.id(req.params.id).remove();
         user.save();
         res.redirect(`/`);
       });
   } else {
     res.redirect('/login');
   }
-})
+});
 
 module.exports = router;

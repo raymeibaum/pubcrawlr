@@ -6,14 +6,13 @@ const googleMapsClient = require('@google/maps').createClient({
 });
 
 router.get('/search', function(req, res) {
-  console.log(req.query.q)
   googleMapsClient.places({
     query: req.query.q,
     type: 'bar',
     radius: 5000
   }, function(err, response) {
     res.json(response);
-  })
-})
+  });
+});
 
 module.exports = router

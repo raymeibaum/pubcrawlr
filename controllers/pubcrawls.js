@@ -13,7 +13,7 @@ router.get('/new', function(req, res) {
           bars: user.favoriteBars,
           username: user.username,
           isAuthenticated: req.isAuthenticated()
-        })
+        });
       });
   } else {
     res.redirect('/login')
@@ -49,7 +49,7 @@ router.get('/:id/edit', function(req, res) {
         });
       });
   } else {
-    res.redirect('/login')
+    res.redirect('/login');
   }
 });
 
@@ -57,13 +57,13 @@ router.post('/', function(req, res) {
   if(req.user && (req.params.username === req.user.username)) {
     User.findOne({username: req.params.username})
       .exec(function(err, user) {
-        let pubcrawl = new Pubcrawl()
+        let pubcrawl = new Pubcrawl();
 
         pubcrawl.name = req.body.name;
         pubcrawl.theme = req.body.theme;
         pubcrawl.date = req.body.date;
         pubcrawl.time = req.body.time;
-        pubcrawl.startBar = user.favoriteBars.id(req.body.startBar)
+        pubcrawl.startBar = user.favoriteBars.id(req.body.startBar);
 
         Array.isArray(req.body.checkedBars) ?
         req.body.checkedBars.forEach(function(checkedBar) {
@@ -94,7 +94,8 @@ router.patch('/:id', function(req, res) {
         pubcrawl.theme = req.body.theme;
         pubcrawl.date = req.body.date;
         pubcrawl.time = req.body.time;
-        pubcrawl.startBar = user.favoriteBars.id(req.body.startBar)
+        pubcrawl.startBar = user.favoriteBars.id(req.body.startBar);
+
         if (req.body.checkedBars) {
           pubcrawl.bars = [];
           Array.isArray(req.body.checkedBars) ?
@@ -124,5 +125,6 @@ router.delete('/:id', function(req, res) {
   } else {
     res.redirect('/login');
   }
-})
+});
+
 module.exports = router;
