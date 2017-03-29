@@ -2,8 +2,10 @@
 
 **A MEN stack application that allows users to plan pubcrawls based on their favorite bars.**
 
-## Deployment
-Deployed to Heroku [here](https://pubcrawlr.herokuapp.com/).
+## Deployment & Portfolio
+[deployment](https://pubcrawlr.herokuapp.com/)
+
+[portfolio](http://www.raymeibaum.com/)
 
 ## Features
 - Complete user login/registration
