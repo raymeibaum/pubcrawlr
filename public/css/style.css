@@ -11,3 +11,6 @@ img#bar-map {
 form#search-results-select {
   margin-top: 10px;
 }
+a#footer-link {
+  color: inherit;
+}
