@@ -17,14 +17,14 @@ function getResults(event) {
     });
   });
   results.then(function(locations) {
-    display(locations);
+    displayLocationsDropdown(locations);
   });
   results.catch(function(err) {
     console.error(err);
   });
 }
 
-function display(locations) {
+function displayLocationsDropdown(locations) {
   $resultsSelect.empty();
   $resultsSelect.removeAttr('disabled');
   locations.forEach(function(location) {
