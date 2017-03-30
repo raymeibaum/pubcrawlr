@@ -1,5 +1,6 @@
 body {
-  margin: 50px 0;
+  margin-top: 50px;
+  margin-bottom: 70px;
   font-family: 'Roboto', sans-serif;
 }
 a.navbar-brand {
